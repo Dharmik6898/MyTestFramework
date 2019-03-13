@@ -1,4 +1,11 @@
-package com.dharmik;
+/**
+ * 
+ */
+/**
+ * @author dharm
+ *
+ */
+package com.dharmik.page;
 
 import java.util.List;
 
@@ -24,12 +31,10 @@ public class TestNGPage {
 	}
 
 
-	public void getOrderList() {
-		Actions action = new Actions(driver);	
-		WebElement yourOrder = driver.findElement(By.id("nav-link-yourAccount"));
-		action.moveToElement(yourOrder).build().perform();
-		List<WebElement> orderList = driver.findElements(By.xpath("(//*[@class='nav-template nav-flyout-content nav-tpl-itemList'])[3]/a/span"));
-		System.out.println(orderList.size());
+	public int getOrderList() {
+		WebElement listHover = driver.findElement(By.xpath("//a[@id = 'nav-link-yourAccount' ]"));
+		List<WebElement> listData = driver.findElements(By.xpath("(//*[@class='nav-template nav-flyout-content nav-tpl-itemList'])[3]/a/span"));
+		return common.getHoverList(listHover, listData, driver);
 	}
 
 
@@ -43,6 +48,13 @@ public class TestNGPage {
 		WebElement popUp = driver.findElement(By.xpath("//*[@id='content']/p[8]/button"));
 		popUp.click();
 		common.acceptAlert(driver);
+	}
+
+
+	public String getAppTitle() {
+		// TODO Auto-generated method stub
+		WebElement element = driver.findElement(By.xpath("//*[@class='gb_x gb_Vb']"));
+		return element.getAttribute("title");
 	}
 
 	

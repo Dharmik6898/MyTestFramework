@@ -1,4 +1,4 @@
-package com.dharmik;
+package com.dharmik.test;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -16,6 +17,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import com.dharmik.page.TestNGPage;
 
 public class TestNG {
 	
@@ -44,16 +47,24 @@ public class TestNG {
 		
 	}
 	
-	@Test
+	@Test(successPercentage = 60,invocationCount = 5)
 	public void actionCheck() {
 		function.openPage("https://www.amazon.in/");
-		function.getOrderList();
+		int actualNoItems = function.getOrderList();
+		Assert.assertEquals(actualNoItems, 10);
 	}
 	
 	@Test
 	public void alertCheck() {
 		function.openPage("https://www.toolsqa.com/handling-alerts-using-selenium-webdriver/");
 		function.alertAccept();
+	}
+	
+	@Test
+	public void attributeCheck() {
+		function.openPage("https://www.google.com/");
+		String actualAppText = function.getAppTitle();
+		Assert.assertEquals(actualAppText, "Google apps");
 	}
 	
 	@AfterMethod
